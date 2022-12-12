@@ -8,7 +8,16 @@ export class PolicyController {
 
   @Post('keys')
   async getKeys(@Body() request: PolicyRequest): Promise<string[]> {
-    const obj = await this.policyService.ExecuteOPA(request);
+    const obj = await this.policyService.GetKeys(request);
     return Object.keys(obj);
+  }
+
+  @Post('conftest')
+  async getConfTest(@Body() request: PolicyRequest): Promise<string> {
+    try {
+      return await this.policyService.GetConfTest(request);
+    } catch (e) {
+      return e;
+    }
   }
 }
